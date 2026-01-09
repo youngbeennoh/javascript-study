@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>e.target 연습</title>
+  <style>
+
+  </style>
+</head>
+<body>
+    <input type="text" id="inputPokemon" />
+    <button id="inputCreator" type="submit">登録</button>
+    <ul id="pokemonList"></ul>
+
+  <script>
+    const inputPokemon = document.getElementById("inputPokemon");
+    const pokemonList = document.getElementById("pokemonList");
+    const inputCreator = document.getElementById("inputCreator");
+
+    
+
+    inputCreator.addEventListener("click", (e) => {
+
+       const name = inputPokemon.value.trim();
+
+      const li = document.createElement("li");
+      const span = document.createElement("span");
+      const delBtn = document.createElement("button");
+
+      span.textContent = name;
+      delBtn.type = "button";
+      delBtn.textContent = "削除"
+      delBtn.dataset.action = "delete"; // 또는 delBtn.setAttribute("data-action","delete")
+      
+      li.append(span,delBtn);
+
+      pokemonList.appendChild(li);
+      pokemonList.addEventListener("click", deletePokemon);
+
+      inputPokemon.value = "";
+      inputPokemon.focus();
+    })
+
+
+
+
+
+    function deletePokemon(e) {
+ 
+      const btn = e.target.closest("button[data-action='delete']")
+    
+      const li = btn.closest("li");
+      if(!li) return;
+
+      li.remove();
+    }
+
+
+  </script>
+</body>
+</html>
